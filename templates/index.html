@@ -1,0 +1,110 @@
+{% extends "base.html"%}
+{% block title %}Home{% endblock %}
+
+<!--Page Content block-->
+{% block page_content %}
+
+<!-- Video Stream bloc-1 -->
+<div class="bloc l-bloc" id="bloc-1">
+	<div class="container bloc-lg">
+		<div class="row">
+			<div class="col">
+
+				<h1 class="mg-md text-lg-center">Video from External WebCam M1</h1>
+
+				<div id="screenshotBtn" class="screenshotBtn">
+					<a style="opacity: 0.5;" type="button" class="screenshot position-absolute">
+	<!--					Camera icon code-->
+						<svg id="take_photo" xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-camera" viewBox="0 0 16 16">
+							<path d="M15 12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1h1.172a3 3 0 0 0 2.12-.879l.83-.828A1 1 0 0 1 6.827 3h2.344a1 1 0 0 1 .707.293l.828.828A3 3 0 0 0 12.828 5H14a1 1 0 0 1 1 1v6zM2 4a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2h-1.172a2 2 0 0 1-1.414-.586l-.828-.828A2 2 0 0 0 9.172 2H6.828a2 2 0 0 0-1.414.586l-.828.828A2 2 0 0 1 3.172 4H2z"/>
+							<path d="M8 11a2.5 2.5 0 1 1 0-5 2.5 2.5 0 0 1 0 5zm0 1a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7zM3 6.5a.5.5 0 1 1-1 0 .5.5 0 0 1 1 0z"/>
+						</svg>
+					</a>
+				</div>
+
+				<a id="recordBtn" style="opacity: 0.5;" type="button" class="record position-absolute">
+<!--					video Camera icon code-->
+					<svg id="start_record" xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-camera-video" viewBox="0 0 16 16">
+  						<path fill-rule="evenodd" d="M0 5a2 2 0 0 1 2-2h7.5a2 2 0 0 1 1.983 1.738l3.11-1.382A1 1 0 0 1 16 4.269v7.462a1 1 0 0 1-1.406.913l-3.111-1.382A2 2 0 0 1 9.5 13H2a2 2 0 0 1-2-2V5zm11.5 5.175 3.5 1.556V4.269l-3.5 1.556v4.35zM2 4a1 1 0 0 0-1 1v6a1 1 0 0 0 1 1h7.5a1 1 0 0 0 1-1V5a1 1 0 0 0-1-1H2z"/>
+					</svg>
+				</a>
+
+				<img class="img-fluid mx-auto d-block lazyload" src="{{ url_for('external_cam_video') }}" />
+			</div>
+		</div>
+	</div>
+</div>
+<!-- bloc-1 END -->
+
+<div id="video"></div>
+
+<!-- bloc-2 Chat-->
+<div class="bloc l-bloc" id="bloc-2">
+	<div class="container bloc-lg">
+		<div class="row">
+			<div class="col">
+				<div class="form-group">
+					<textarea id="chatDisplay" class="form-control" rows="15" cols="50" placeholder="No messages meanwhile" readonly="readonly" style="background-color: white;"></textarea>
+					<div id="emojis" class="form-group" style="padding-top: 10px;">
+						<textarea id="chatInput" class="form-control" rows="4" cols="50" placeholder="Enter your message."></textarea>
+
+						<a id="sendBtn" type="button" class="btn btn-info btn-lg chat_button" style="">Send</a>
+						<a id="clearBtn" type="button" class="btn btn-warning btn-lg chat_button"
+						   onclick="$('#chatInput').val('')">
+							Clear
+						</a>
+
+
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- bloc-2 END -->
+
+{% endblock %}
+
+
+<!--JavaScript block-->
+{% block on_page_javascript %}
+
+<script type="text/javascript" charset="utf-8">
+
+<!--Initiating "socket" instance connected to backend. -->
+
+  var socket = io.connect();
+
+
+<!--Initiating a function on "chatDisplay_messages" event emitted by backend script. -->
+
+  socket.on('display_messages', function(data) {
+  		$('#chatDisplay').val(data.chat);
+  		let chatDisplay = document.getElementById('chatDisplay');
+  		chatDisplay.scrollTop = chatDisplay.scrollHeight;
+  });
+
+<!--  socket.on('name_announce', function(name) {-->
+<!--  		alert(`Today your ChatName is "${name}"`)-->
+<!--  });-->
+
+
+<!--Scroll to the <div id="screenshotBtn">-->
+
+	window.location.href = "#screenshotBtn";
+
+
+<!--Dark theme for chat start-->
+
+	let chatTextColor = '#9DA2A5';
+	let chatBackgroundColor = '#252525';
+	$('#chatDisplay').css('background-color', chatBackgroundColor).css('color', chatTextColor);
+	$('#chatInput').css('background-color', chatBackgroundColor).css('color', chatTextColor);
+
+<!--Dark theme for chat end-->
+
+
+
+</script><!-- Additional JS END -->
+
+{% endblock %}

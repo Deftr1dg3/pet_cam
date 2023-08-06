@@ -1,0 +1,133 @@
+{% extends "base.html" %}
+
+<!--Title-->
+{% block title %}Screenshots{% endblock %}
+
+
+
+{% block page_content %}
+
+<!-- Photo bloc-1 -->
+<div class="bloc l-bloc" id="bloc-1">
+	<div class="container bloc-lg container-gallery">
+		<div class="row">
+			<div id="container" class="col" style="user-select: none;">
+
+<!--				<h1 class="mg-md text-lg-center">Gallery</h1>-->
+
+<!--				<p style="position: absolute;">Image Name</p>-->
+
+				<div id="deleteButton" class="deleteButton">
+					<a type="button" class="">
+<!--					video Camera icon code-->
+						<svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="" class="bi bi-trash" viewBox="0 0 16 16">
+						  <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z"/>
+						  <path fill-rule="evenodd" d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"/>
+						</svg>
+					</a>
+				</div>
+
+				<div class="arrow arrow-left">
+					<a id="leftArrow" style="" type="button" class="position-absolute">
+<!--					video Camera icon code-->
+						<svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" fill="" class="bi bi-arrow-left-square-fill" viewBox="0 0 16 16">
+							<path d="M16 14a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v12zm-4.5-6.5H5.707l2.147-2.146a.5.5 0 1 0-.708-.708l-3 3a.5.5 0 0 0 0 .708l3 3a.5.5 0 0 0 .708-.708L5.707 8.5H11.5a.5.5 0 0 0 0-1z"/>
+						</svg>
+					</a>
+				</div>
+
+				<div class="arrow arrow-right">
+					<a id="rightArrow" style="" type="button" class="position-absolute">
+<!--					video Camera icon code-->
+						<svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" fill="" class="bi bi-arrow-right-square-fill" viewBox="0 0 16 16">
+ 							 <path d="M0 14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2a2 2 0 0 0-2 2v12zm4.5-6.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5a.5.5 0 0 1 0-1z"/>
+						</svg>
+					</a>
+				</div>
+
+				<img id="image" class="img-fluid mx-auto d-block lazyload" src="{{ url_for('show_photo', file_name=images[image_index]) }}" />
+
+				<div id="imageName" class="bottom-right" style="position: absolute; bottom: 8px; right: 50px;">Bottom Right</div>
+
+			</div>
+		</div>
+	</div>
+</div>
+<!-- bloc-1 END -->
+
+<div id="bottom"></div>
+
+
+{% endblock %}
+
+
+<!--On page JavaScript block-->
+{% block on_page_javascript %}
+
+<script type="text/javascript" charset="utf-8">
+
+<!--	let socketIO = io.connect();-->
+
+	let images = {{ images|tojson }};
+	let image = document.getElementById('image');
+	let leftArrow = document.getElementById('leftArrow');
+	let rightArrow = document.getElementById('rightArrow');
+	let deleteButton = document.getElementById('deleteButton');
+	let index = {{ image_index}};
+	let imageName = document.getElementById('imageName');
+
+	imageName.innerHTML = images[index];
+
+	scrollBottom();
+
+	function deletePhoto() {
+		let confirmation = window.confirm(`Are you sure, that you want to delete the photo ${images[index]} permanently ?`)
+		alert(confirmation)
+	}
+
+
+	function scrollBottom() {
+		let scrollHeight = document.documentElement.scrollHeight;
+		let clientHeight = document.documentElement.clientHeight;
+		document.documentElement.scrollTop = scrollHeight - clientHeight;
+	}
+
+
+	function updateGallery() {
+		image.src = "{{ url_for('show_photo', file_name='') }}/" + images[index];
+
+		imageName.innerHTML = images[index];
+	};
+
+
+   	rightArrow.addEventListener('click', function() {
+   		if (index === 0) {
+   			index = images.length - 1;
+   		}else {
+   			index--;
+   		}
+   		updateGallery();
+
+   	});
+
+   	leftArrow.addEventListener('click', function() {
+   		if (index === images.length - 1) {
+   			index = 0;
+   		}else {
+   			index++;
+   		}
+   		updateGallery();
+   	});
+
+   	deleteButton.addEventListener('click', deletePhoto)
+
+
+
+<!--   	document.addEventListener('DOMContentLoaded', function() {alert('page loaded')});-->
+
+
+
+
+</script>
+
+{% endblock %}

@@ -1,0 +1,180 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="keywords" content="">
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+	<link rel="canonical" href="http://192.168.1.3:12345/">
+	<meta name="robots" content="index, follow">
+    <link rel="shortcut icon" type="image/png" href="{{url_for('static', filename='favicon_cat.png')}}">
+    
+	<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
+	<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='bootstrap.css') }}">
+
+
+	
+    <title>Home</title>
+
+
+<!-- Analytics -->
+
+<!-- Analytics END -->
+
+</head>
+
+
+<body>
+
+<!-- Preloader -->
+<div id="page-loading-blocs-notifaction" class="page-preloader"></div>
+<!-- Preloader END -->
+
+
+<!-- Main container -->
+<div class="page-container">
+
+<!-- bloc-0 -->
+<div class="bloc l-bloc" id="bloc-0">
+	<div class="container bloc-sm">
+		<div class="row">
+			<div class="col">
+				<nav class="navbar navbar-light row navbar-expand-md nav-invert" role="navigation">
+					<button id="nav-toggle" type="button" class="ui-navbar-toggler navbar-toggler border-0 p-0" data-toggle="collapse" data-target=".navbar-13113" aria-expanded="false" aria-label="Toggle navigation">
+						<span class="navbar-toggler-icon"></span>
+					</button>
+					<div class="collapse navbar-collapse navbar-13113">
+						<ul class="site-navigation nav navbar-nav">
+							<li class="nav-item">
+								<a href="#" class="nav-link">Home</a>
+							</li>
+							<li class="nav-item">
+								<a href="#" class="nav-link a-btn">Screenshots</a>
+							</li>
+							<li class="nav-item">
+								<a href="#" class="nav-link a-btn" style="display: none;">Video</a>
+							</li>
+						</ul>
+					</div><a class="navbar-brand mr-0" href="#">PetCam</a>
+				</nav>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- bloc-0 END -->
+
+
+
+
+<!-- Video Stream bloc-1 -->
+<div class="bloc l-bloc" id="bloc-1">
+	<div class="container bloc-lg">
+		<div class="row">
+			<div class="col">
+
+				<h1 class="mg-md text-lg-center">Video from External WebCam M1</h1>
+
+				<a id="screenshotBtn" style="opacity: 0.5;" type="button" class="screenshot position-absolute">
+<!--					Camera icon code-->
+					<svg id="take_photo" xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-camera" viewBox="0 0 16 16">
+  						<path d="M15 12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1h1.172a3 3 0 0 0 2.12-.879l.83-.828A1 1 0 0 1 6.827 3h2.344a1 1 0 0 1 .707.293l.828.828A3 3 0 0 0 12.828 5H14a1 1 0 0 1 1 1v6zM2 4a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2h-1.172a2 2 0 0 1-1.414-.586l-.828-.828A2 2 0 0 0 9.172 2H6.828a2 2 0 0 0-1.414.586l-.828.828A2 2 0 0 1 3.172 4H2z"/>
+  						<path d="M8 11a2.5 2.5 0 1 1 0-5 2.5 2.5 0 0 1 0 5zm0 1a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7zM3 6.5a.5.5 0 1 1-1 0 .5.5 0 0 1 1 0z"/>
+					</svg>
+				</a>
+
+				<a id="recordBtn" style="opacity: 0.5;" type="button" class="record position-absolute">
+<!--					video Camera icon code-->
+					<svg id="start_record" xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-camera-video" viewBox="0 0 16 16">
+  						<path fill-rule="evenodd" d="M0 5a2 2 0 0 1 2-2h7.5a2 2 0 0 1 1.983 1.738l3.11-1.382A1 1 0 0 1 16 4.269v7.462a1 1 0 0 1-1.406.913l-3.111-1.382A2 2 0 0 1 9.5 13H2a2 2 0 0 1-2-2V5zm11.5 5.175 3.5 1.556V4.269l-3.5 1.556v4.35zM2 4a1 1 0 0 0-1 1v6a1 1 0 0 0 1 1h7.5a1 1 0 0 0 1-1V5a1 1 0 0 0-1-1H2z"/>
+					</svg>
+				</a>
+
+				<img class="img-fluid mx-auto d-block lazyload" src="{{ url_for('external_cam_video') }}" />
+			</div>
+		</div>
+	</div>
+</div>
+<!-- bloc-1 END -->
+
+
+
+
+
+<!-- bloc-2 -->
+<div class="bloc l-bloc" id="bloc-2">
+	<div class="container bloc-lg">
+		<div class="row">
+			<div class="col">
+				<div class="form-group">
+					<textarea id="display" class="form-control" rows="15" cols="50" placeholder="No messages meanwhile" readonly="readonly" style="background-color: white;"></textarea>
+					<div id="emojis" class="form-group" style="padding-top: 10px;">
+						<textarea id="input" class="form-control" rows="4" cols="50" placeholder="Enter your message."></textarea>
+
+						<a id="sendBtn" type="button" class="btn btn-info btn-lg chat_button" style="">Send</a>
+						<a id="clearBtn" type="button" class="btn btn-warning btn-lg chat_button"
+						   onclick="$('#input').val('')">
+							Clear
+						</a>
+
+
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- bloc-2 END -->
+
+
+</div>
+<!-- Main container END -->
+
+
+<!-- Additional JS -->
+<script src="{{ url_for('static', filename='custom.js') }}"></script>
+<script src="{{ url_for('static', filename='jquery.js') }}"></script>
+<script src="{{ url_for('static', filename='bootstrap.bundle.js') }}"></script>
+<script src="{{ url_for('static', filename='blocs.js') }}"></script><!-- Additional JS END -->
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/socket.io/4.5.1/socket.io.js"></script>
+<script src="//code.jquery.com/jquery-3.6.0.min.js"></script>
+
+
+<script type="text/javascript" charset="utf-8">
+
+<!--Initiating "socket" instance connected to backend. -->
+
+  var socket = io.connect();
+
+<!--Sends to backend notification about new connected client. -->
+
+  socket.on('connect', function() {
+  		socket.send(socket.id.slice(0, 5).toUpperCase() + ': ' +'<NEW CLIENT CONNECTED>');
+  });
+
+
+<!--Initiating a function on "display_messages" event emitted by backend script. -->
+
+  socket.on('display_messages', function(data) {
+  		$('#display').val(data.chat);
+  		let display = document.getElementById('display');
+  		display.scrollTop = display.scrollHeight;
+  });
+
+
+</script><!-- Additional JS END -->
+
+
+
+</body>
+</html>
+
+
+<!--Custom Parts-->
+<!--Connected viewers-->
+<!--<h2 style="margin-top: 60px; margin-left: 60px; color: grey; text-align: center;">Connected Viewers: <span id="connected-users" style="color: red;">0</span></h2>-->
+
+<!--Video streaming to image-->
+<!--<h2 class="mg-md" style="margin-top: 60px; margin-left: 60px; color: grey; text-align: center;">Connected Viewers: <span id="connected-users" style="color: red;">0</span></h2>-->
+<!--<h1 class="mg-md text-lg-center">Video from External WebCam M1</h1>-->
+<!--<img class="img-fluid mx-auto d-block lazyload" src="{{ url_for('external_cam_video') }}" />-->

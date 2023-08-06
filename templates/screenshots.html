@@ -1,0 +1,134 @@
+{% extends "base.html" %}
+
+<!--Title-->
+{% block title %}Screenshots{% endblock %}
+
+<!--Page content-->
+{% block page_content %}
+
+<h1 id="title" style="text-align: center; color: grey;">Screenshots</h1>
+
+
+<div class="container">
+
+
+
+    <div id="row" class="row">
+
+<!--        {% for file in full_dates %}-->
+
+<!--            <div id="photo_container" class="col-6 col-lg-2 col-md-4 col-sm-4">-->
+
+<!--                <a style="text-decoration: none;" href="{{ url_for('gallery', file_name=file[1]) }}" style="margin: 10px 10px;" target="_blank">-->
+<!--                    <figure>-->
+<!--                        <img src="{{ url_for('show_photo', file_name=file[1]) }}" width="120" height="90">-->
+<!--                        <figcaption>{{ file[1] }}</figcaption>-->
+<!--                    </figure>-->
+<!--                </a>-->
+
+<!--            </div>-->
+
+<!--        {% endfor %}-->
+
+<!--        {% for file in full_dates %}-->
+
+<!--            <div id="photo_container" class="col-6 col-lg-2 col-md-4 col-sm-4">-->
+
+<!--&lt;!&ndash;                <a style="text-decoration: none;" href="{{ url_for('gallery', file_name=file[1]) }}" style="margin: 10px 10px;" target="_blank">&ndash;&gt;-->
+<!--&lt;!&ndash;                    <figure>&ndash;&gt;-->
+<!--&lt;!&ndash;                        <img src="{{ url_for('show_photo', file_name=file[1]) }}" width="120" height="90">&ndash;&gt;-->
+<!--&lt;!&ndash;                        <figcaption>{{ file[1] }}</figcaption>&ndash;&gt;-->
+<!--&lt;!&ndash;                    </figure>&ndash;&gt;-->
+<!--&lt;!&ndash;                </a>&ndash;&gt;-->
+
+<!--            </div>-->
+
+<!--        {% endfor %}-->
+
+
+
+    </div>
+
+
+</div>
+
+{% endblock %}
+
+<!--On page JavaScript block-->
+{% block on_page_javascript %}
+<script type="text/javascript" charset="utf-8">
+
+    let imagesLoaded = 0;
+    let step = 15
+
+    let images = {{ full_dates|tojson }}
+
+
+    loadImages(imagesLoaded, step);
+    imagesLoaded += step;
+
+
+    function loadImages(start, step) {
+        imagesLeft = images.length - imagesLoaded;
+        if (step > imagesLeft) {step = imagesLeft};
+
+        for (let index = start; index < start + step; index++) {
+
+            const row = document.getElementById('row');
+            row.style.marginLeft = '25px';
+
+            const block_container = document.createElement('div');
+            block_container.id = 'block_container';
+            block_container.class = 'col-6 col-lg-2 col-md-4 col-sm-4';
+            block_container.style.margin = '10px';
+
+            const link = document.createElement('a');
+            link.style.textDecoration = 'none';
+            link.style.margin = '10px';
+            link.target = '_blank';
+            link.href = "{{ url_for('gallery', file_name='') }}/" + images[index];
+
+
+            const figure = document.createElement('figure');
+
+            const img = document.createElement('img');
+            img.src = "{{ url_for('show_photo', file_name='') }}/" + images[index];
+            img.width = '120';
+            img.height = '90';
+
+            const figcaption = document.createElement('figcaption');
+
+            figcaption.textContent = `${images[index]}`;
+
+            figure.appendChild(img)
+            figure.appendChild(figcaption)
+
+            link.appendChild(figure)
+
+            block_container.appendChild(link)
+
+            row.appendChild(block_container)
+
+        }
+
+    }
+
+
+
+    window.addEventListener('scroll', function() {
+        if (window.innerHeight + window.scrollY >= document.body.offsetHeight) {
+            // User has scrolled to the bottom
+
+            loadImages(imagesLoaded, step)
+            imagesLoaded += step;
+
+        }
+    });
+
+<!--    window.scroll(0, 800)-->
+
+    document.documentElement.scrollTop = 1500;
+
+</script>
+
+{% endblock %}
