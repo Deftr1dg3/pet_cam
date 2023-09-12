@@ -26,9 +26,8 @@ TAKE_SCREENSHOT = False
 RECORD_VIDEO = False
 
 
-
 # Creating a video streaming object to get frames
-vs = VideoStream(src=1).start()
+vs = VideoStream().start()
 
 fourcc = cv2.VideoWriter_fourcc('m', 'p', '4', 'v')
 # out = cv2.VideoWriter('videos/out.mp4', fourcc, 20.0, (1920, 1080))
