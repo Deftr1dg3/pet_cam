@@ -18,5 +18,6 @@ All screenshots are stored on the './screenshot' forlder in the app source direc
 
 4. Under the stream window there is a chat.
 In case you want to share link with somebody else and to discuss your pet behaviour.
+The set of emoji is optimal and does not need to be extended:)))
 ![Caht.](pet_cam_screenshots/chat_window.png)
 
