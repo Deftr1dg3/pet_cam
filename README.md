@@ -14,10 +14,10 @@ All screenshots are stored on the './screenshot' forlder in the app source direc
 ![Screenshots.](pet_cam_screenshots/screenshots.png )
 
 3. You can select a screenshot and it will be opened in gallery mode.
-![Galery.](pet_cam_screenshots/gallery.png )
+
 
 4. Under the stream window there is a chat.
 In case you want to share link with somebody else and to discuss your pet behaviour.
 The set of emoji is optimal and does not need to be extended:)))
-![Caht.](pet_cam_screenshots/chat_window.png)
+
 
